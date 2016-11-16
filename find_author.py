@@ -16,8 +16,17 @@ def average_word_length(text): # alex y
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word.'''
     
-    # To do: Replace this function's body to meet its specification.
-    return 5.14285714286
+    total_letters = 0
+    total_words = 0
+    
+    for line in text:
+        line_list = line.split()
+        for word in line_list:
+            refined_word = clean_up(word)
+            total_letters += len(refined_word)
+            total_words += 1
+
+    return (total_letters / total_words)
     
 
 def type_token_ratio(text): # alexia
