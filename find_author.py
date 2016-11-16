@@ -1,6 +1,6 @@
 import os.path, math
 
-def clean_up(s): # alex y 
+def clean_up(s): 
     ''' Return a version of string s in which all letters have been
     converted to lowercase and punctuation characters have been stripped 
     from both ends. Inner punctuation is left untouched. '''
@@ -65,7 +65,7 @@ def average_sentence_length(text): # alex k
     return 1
     
 
-def avg_sentence_complexity(text): # who wants this?
+def avg_sentence_complexity(text): # alex y
     '''Return the average number of phrases per sentence.
     Terminating punctuation defined as !?.
     A sentence is defined as a non-empty string of non-terminating
