@@ -123,7 +123,7 @@ def compare_signatures(sig1, sig2, weight): # collab, has dependencies in other 
     return  0.0
     
 
-def read_signature(filename): # collab, has dependencies in other functions
+def read_signature(filename): 
     '''Read a linguistic signature from filename and return it as 
     list of features. '''
     
