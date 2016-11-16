@@ -1,6 +1,6 @@
 import os.path, math
 
-def clean_up(s):
+def clean_up(s): # alex y 
     ''' Return a version of string s in which all letters have been
     converted to lowercase and punctuation characters have been stripped 
     from both ends. Inner punctuation is left untouched. '''
@@ -10,7 +10,7 @@ def clean_up(s):
     return result
 
 
-def average_word_length(text):
+def average_word_length(text): # alex y
     ''' Return the average length of all words in text. Do not
     include surrounding punctuation in words. 
     text is a non-empty list of strings each ending in \n.
@@ -20,7 +20,7 @@ def average_word_length(text):
     return 5.14285714286
     
 
-def type_token_ratio(text):
+def type_token_ratio(text): # alexia
     ''' Return the type token ratio (TTR) for this text.
     TTR is the number of different words divided by the total number of words.
     text is a non-empty list of strings each ending in \n.
@@ -30,7 +30,7 @@ def type_token_ratio(text):
     return 1
     
                 
-def hapax_legomana_ratio(text):
+def hapax_legomana_ratio(text): # alexia
     ''' Return the hapax_legomana ratio for this text.
     This ratio is the number of words that occur exactly once divided
     by the total number of words.
@@ -41,7 +41,7 @@ def hapax_legomana_ratio(text):
     return 1
 
 
-def split_on_separators(original, separators):
+def split_on_separators(original, separators): # alex k
     ''' Return a list of non-empty, non-blank strings from the original string
     determined by splitting the string on any of the separators.
     separators is a string of single-character separators.'''
@@ -53,7 +53,7 @@ def split_on_separators(original, separators):
     return result
                 
     
-def average_sentence_length(text):
+def average_sentence_length(text): # alex k
     ''' Return the average number of words per sentence in text.
     text is guaranteed to have at least one sentence.
     Terminating punctuation defined as !?.
@@ -65,7 +65,7 @@ def average_sentence_length(text):
     return 1
     
 
-def avg_sentence_complexity(text):
+def avg_sentence_complexity(text): # who wants this?
     '''Return the average number of phrases per sentence.
     Terminating punctuation defined as !?.
     A sentence is defined as a non-empty string of non-terminating
@@ -78,7 +78,7 @@ def avg_sentence_complexity(text):
     return 1.0
     
     
-def get_valid_filename(prompt):
+def get_valid_filename(prompt): # use OS module, who wants this?
     '''Use prompt (a string) to ask the user to type the name of a file. If
     the file does not exist, keep asking until they give a valid filename.
     The filename must include the path to the file.
@@ -92,7 +92,7 @@ def get_valid_filename(prompt):
     # Do not use any other input or output statements in this function.
 
     
-def read_directory_name(prompt):
+def read_directory_name(prompt): # use OS module, who wants this?
     '''Use prompt (a string) to ask the user to type the name of a directory. If
     the directory does not exist, keep asking until they give a valid directory.
     '''
@@ -104,7 +104,7 @@ def read_directory_name(prompt):
     return dirname
 
     
-def compare_signatures(sig1, sig2, weight):
+def compare_signatures(sig1, sig2, weight): # collab, has dependencies in other functions
     '''Return a non-negative real number indicating the similarity of two 
     linguistic signatures. The smaller the number the more similar the 
     signatures. Zero indicates identical signatures.
@@ -123,7 +123,7 @@ def compare_signatures(sig1, sig2, weight):
     return  0.0
     
 
-def read_signature(filename):
+def read_signature(filename): # collab, has dependencies in other functions
     '''Read a linguistic signature from filename and return it as 
     list of features. '''
     
