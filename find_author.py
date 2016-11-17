@@ -1,4 +1,5 @@
 import os.path, math
+import re
 
 def clean_up(s): 
     ''' Return a version of string s in which all letters have been
@@ -66,6 +67,18 @@ def split_on_separators(original, separators): # alex k
     return result
                 
     
+'''
+Adding from Richard's updated python file on ADA
+You don't need this function.
+you can use re.split(), where you give it a regular expression.
+Regular expressions include '[!\?\.]'
+
+def split_on_separators(original, separators):
+     Return a list of non-empty, non-blank strings from the original string
+    determined by splitting the string on any of the separators.
+    separators is a string of single-character separators.
+
+'''       
 def average_sentence_length(text): # alex k
     ''' Return the average number of words per sentence in text.
     text is guaranteed to have at least one sentence.
@@ -88,10 +101,11 @@ def avg_sentence_complexity(text): # alexia
     one or more of the following delimiters ,;: '''
     
     # To do: Replace this function's body to meet its specification.
+
     return 1.0
     
     
-def get_valid_filename(prompt): # use OS module, who wants this?
+def get_valid_filename(prompt): # alexia, use OS module, who wants this?
     '''Use prompt (a string) to ask the user to type the name of a file. If
     the file does not exist, keep asking until they give a valid filename.
     The filename must include the path to the file.
@@ -105,7 +119,7 @@ def get_valid_filename(prompt): # use OS module, who wants this?
     # Do not use any other input or output statements in this function.
 
     
-def read_directory_name(prompt): # use OS module, who wants this?
+def read_directory_name(prompt): # alexia, use OS module 
     '''Use prompt (a string) to ask the user to type the name of a directory. If
     the directory does not exist, keep asking until they give a valid directory.
     '''
@@ -117,7 +131,7 @@ def read_directory_name(prompt): # use OS module, who wants this?
     return dirname
 
     
-def compare_signatures(sig1, sig2, weight): # collab, has dependencies in other functions
+def compare_signatures(sig1, sig2, weight): # we should try to collaborate as much as possible on this as it has dependencies in all the other functions
     '''Return a non-negative real number indicating the similarity of two 
     linguistic signatures. The smaller the number the more similar the 
     signatures. Zero indicates identical signatures.
