@@ -29,17 +29,21 @@ def average_word_length(text): # alex y
     return (total_letters / total_words)
     
 
-def type_token_ratio(text): # alexia
+def type_token_ratio(text): # alex y
     ''' Return the type token ratio (TTR) for this text.
     TTR is the number of different words divided by the total number of words.
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word. '''
-  
-    # To do: Replace this function's body to meet its specification.
-    return 1
+    
+    refined_text = clean_up(' '.join(text))
+    refined_list = refined_text.split()
+    num_words = len(refined_text.split())
+    num_unique_words = len(set(refined_list))
+    
+    return (num_unique_words / num_words)
     
                 
-def hapax_legomana_ratio(text): # alexia
+def hapax_legomana_ratio(text): # alex y
     ''' Return the hapax_legomana ratio for this text.
     This ratio is the number of words that occur exactly once divided
     by the total number of words.
@@ -74,7 +78,7 @@ def average_sentence_length(text): # alex k
     return 1
     
 
-def avg_sentence_complexity(text): # alex y
+def avg_sentence_complexity(text): # alexia
     '''Return the average number of phrases per sentence.
     Terminating punctuation defined as !?.
     A sentence is defined as a non-empty string of non-terminating
