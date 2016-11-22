@@ -86,10 +86,16 @@ def get_valid_filename(prompt):
     
     # To do: Complete this function's body to meet its specification.
     # use: print ("That file does not exist: " + filename)
-    filename = input(prompt)
-    return filename
+    while True:
+    	filename = input(prompt)
+    	if (os.path.isfile(filename):
+    		return filename
+    	else:
+    		print('That file does not exist: ' + filename)
+    		
     
     # Do not use any other input or output statements in this function.
+    
 
     
 def read_directory_name(prompt):
@@ -99,9 +105,12 @@ def read_directory_name(prompt):
     
     # To do: Complete this function's body to meet its specification.
     # use print ("That directory does not exist: " + dirname)
-
-    dirname = input(prompt)
-    return dirname
+	while True:
+    	dirname = input(prompt)
+    	if (os.path.isdir(dirname):
+    		return dirname
+    	else:
+    		print('That directory does not exist: ' + dirname)
 
     
 def compare_signatures(sig1, sig2, weight):
