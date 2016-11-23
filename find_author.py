@@ -1,6 +1,8 @@
 import os.path, math
 import re
 
+DBG = False
+
 def clean_up(s):
     ''' Return a version of string s in which all letters have been
     converted to lowercase and punctuation characters have been stripped 
@@ -16,9 +18,16 @@ def average_word_length(text):
     include surrounding punctuation in words. 
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word.'''
-    
-    # To do: Replace this function's body to meet its specification.
-    return 5.14285714286
+    words = get_words(text)
+    num_words = len(words)
+
+    num_letters = 0
+    for w in words:
+        num_letters += len(w)
+
+    avg_word_length = float(num_letters) / float(num_words)
+
+    return avg_word_length
     
 
 def type_token_ratio(text):
@@ -26,9 +35,16 @@ def type_token_ratio(text):
     TTR is the number of different words divided by the total number of words.
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word. '''
-  
-    # To do: Replace this function's body to meet its specification.
-    return 1
+    words = get_words(text)
+    total_words = len(words)
+    unique_words = 0
+    used_words = []
+    for w in words:
+        if (w not in used_words):
+            used_words.append(w)
+            unique_words += 1
+
+    return float(unique_words) / float(total_words)
     
                 
 def hapax_legomana_ratio(text):
@@ -37,9 +53,19 @@ def hapax_legomana_ratio(text):
     by the total number of words.
     text is a list of strings each ending in \n.
     At least one line in text contains a word.'''
- 
-    # To do: Replace this function's body to meet its specification.
-    return 1
+    words = get_words(text)
+    total_words = len(words)
+    unique_words = []
+    used_words = []
+    for w in words:
+        if (w not in used_words):
+            used_words.append(w)
+            unique_words.append(w)
+        elif (w in unique_words):
+            unique_words.remove(w)
+
+    return float(len(unique_words)) / float(total_words)
+
 
 '''
 You don't need this function.
@@ -51,8 +77,38 @@ def split_on_separators(original, separators):
     determined by splitting the string on any of the separators.
     separators is a string of single-character separators.
 
-'''   
-    
+'''
+
+def split_on_separators(original, separators):
+    pattern = "[" + separators + "]"
+    return re.split(pattern, original)
+
+
+def get_sentences(my_text):
+    """takes a list of strings, joins them and runs the clean up function,
+     splits on terminating characters, and returns a list of sentences"""
+
+    # joins array into a string, does nothing if input is a string
+    my_text = ''.join(my_text)
+
+    new_text = clean_up(''.join(my_text))
+    sentences = re.split('''[?!.]+''', new_text)
+    return sentences
+
+
+def get_words(sentence):
+    """takes a single string, splits based on word characters, and returns
+    a list of words contained in the string (omitting empty space)"""
+
+    # joins array into a string, does nothing if input is a string
+    sentence = ''.join(sentence)
+
+    # split on any thing that's not a word character or apostrophe
+    words = re.split("[^\w']+", sentence)
+    # print(list(filter(None, words)))
+    return list(filter(None, words))  # for python2 compatibility
+
+
 def average_sentence_length(text):
     ''' Return the average number of words per sentence in text.
     text is guaranteed to have at least one sentence.
@@ -60,9 +116,12 @@ def average_sentence_length(text):
     A sentence is defined as a non-empty string of non-terminating
     punctuation surrounded by terminating punctuation
     or beginning or end of file. '''
-    
-    # To do: Replace this function's body to meet its specification.
-    return 1
+
+    num_words = len(get_words(text))
+    num_sentences = len(get_sentences(text))
+    avg_length = float(num_words) / float(num_sentences)  # for python2 compatibility
+
+    return avg_length
     
 
 def avg_sentence_complexity(text):
@@ -73,9 +132,18 @@ def avg_sentence_complexity(text):
     or beginning or end of file.
     Phrases are substrings of a sentences separated by
     one or more of the following delimiters ,;: '''
-    
-    # To do: Replace this function's body to meet its specification.
-    return 1.0
+    sentences = get_sentences(text)
+    num_sentences = len(sentences)
+    total_phrases = 0
+
+    for s in sentences:
+        phrases = re.split('''[,;:]''', s)
+        total_phrases += len(phrases)
+
+    average_sentence_complexity = float(total_phrases) / float(num_sentences)
+    if DBG: print('sentences:', num_sentences)
+    if DBG: print('phrases:', total_phrases)
+    return average_sentence_complexity
     
     
 def get_valid_filename(prompt):
@@ -83,19 +151,16 @@ def get_valid_filename(prompt):
     the file does not exist, keep asking until they give a valid filename.
     The filename must include the path to the file.
     Return the name of that file.'''
-    
+
     # To do: Complete this function's body to meet its specification.
     # use: print ("That file does not exist: " + filename)
     while True:
-    	filename = input(prompt)
-    	if (os.path.isfile(filename):
-    		return filename
-    	else:
-    		print('That file does not exist: ' + filename)
-    		
-    
-    # Do not use any other input or output statements in this function.
-    
+        filename = input(prompt)
+
+        if (os.path.isfile(filename)):
+            return filename
+
+        print('That file does not exist: ' + filename)
 
     
 def read_directory_name(prompt):
@@ -105,12 +170,13 @@ def read_directory_name(prompt):
     
     # To do: Complete this function's body to meet its specification.
     # use print ("That directory does not exist: " + dirname)
-	while True:
-    	dirname = input(prompt)
-    	if (os.path.isdir(dirname):
-    		return dirname
-    	else:
-    		print('That directory does not exist: ' + dirname)
+    while True:
+        dirname = input(prompt)
+
+        if os.path.isdir(dirname):
+            return dirname
+
+        print('That directory does not exist: ' + dirname)
 
     
 def compare_signatures(sig1, sig2, weight):
@@ -128,8 +194,16 @@ def compare_signatures(sig1, sig2, weight):
     linguistic feature. weight[0] is ignored.
     '''
     
-    # To do: Replace this function's body to meet its specification.
-    return  0.0
+    comparison = [
+        abs(sig1[1] - sig2[1]) * weight[1],
+        abs(sig1[2] - sig2[2]) * weight[2],
+        abs(sig1[3] - sig2[3]) * weight[3],
+        abs(sig1[4] - sig2[4]) * weight[4],
+        abs(sig1[5] - sig2[5]) * weight[5]
+    ]
+
+    comparison_total = sum(comparison)
+    return comparison_total
     
 
 def read_signature(filename):
