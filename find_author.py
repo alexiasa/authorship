@@ -1,7 +1,7 @@
 import os.path, math
 import re
 
-DBG = False  # for debugging purposes
+# NOTE use "quotes" around inputs when running this in python2
 
 
 def clean_up(s):
@@ -28,7 +28,6 @@ def average_word_length(text):
         num_letters += len(each_word)
 
     avg_word_length = float(num_letters) / float(num_words)  # float for python2 compatibility
-    if DBG: print('average word length:', avg_word_length)  # debug statement
     return avg_word_length
     
 
@@ -37,6 +36,7 @@ def type_token_ratio(text):
     TTR is the number of different words divided by the total number of words.
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word. """
+
     words = get_words(text)
     total_words = len(words)
     unique_words = 0
@@ -48,7 +48,6 @@ def type_token_ratio(text):
             unique_words += 1
 
     ttr = float(unique_words) / float(total_words)  # float for python2 compatibility
-    if DBG: print('type token ratio:', ttr)
     return ttr
     
                 
@@ -58,6 +57,7 @@ def hapax_legomana_ratio(text):
     by the total number of words.
     text is a list of strings each ending in \n.
     At least one line in text contains a word."""
+
     words = get_words(text)
     total_words = len(words)
     unique_words = []
@@ -71,7 +71,6 @@ def hapax_legomana_ratio(text):
             unique_words.remove(each_word)
 
     hapax_legomena = float(len(unique_words)) / float(total_words)  # float for python2 compatibility
-    if DBG: print('hapax legomena ratio:', hapax_legomena)
     return hapax_legomena
 
 
@@ -79,13 +78,14 @@ def split_on_separators(original, separators):
     """Return a list of non-empty, non-blank strings from the original string
         determined by splitting the string on any of the separators.
         separators is a string of single-character separators."""
+
     pattern = "[" + separators + "]"
     return re.split(pattern, original)
 
 
 def get_sentences(my_text):
     """Return a list of sentences from the original string or list
-    by joining them, applying clean up function, and
+    (my_text) by joining them, applying clean up function, and
      splitting on terminating characters."""
 
     my_text = ''.join(my_text)  # joins array into a string and does nothing if input is already a string
@@ -96,7 +96,7 @@ def get_sentences(my_text):
 
 
 def get_words(sentence):
-    """Return a list of words contained in the original string
+    """Return a list of words contained in the original string (sentence)
     by splitting it on word characters using regex and list filtering
     to omit spaces."""
 
@@ -120,7 +120,6 @@ def average_sentence_length(text):
     num_words = len(words)
     num_sentences = len(sentences)
     avg_length = float(num_words) / float(num_sentences)  # float for python2 compatibility
-    if DBG: print('average sentence length:', avg_length)
     return avg_length
     
 
@@ -132,6 +131,7 @@ def avg_sentence_complexity(text):
     or beginning or end of file.
     Phrases are substrings of a sentences separated by
     one or more of the following delimiters ,;: """
+
     sentences = get_sentences(text)  # call get_sentences function to get list of sentences in the text
     num_sentences = len(sentences)
     total_phrases = 0
@@ -142,7 +142,6 @@ def avg_sentence_complexity(text):
 
     average_sentence_complexity = float(total_phrases) / float(num_sentences)  # float for python2 compatibility
 
-    if DBG: print('average sentence complexity:', average_sentence_complexity)
     return average_sentence_complexity
     
     
@@ -189,9 +188,6 @@ def compare_signatures(sig1, sig2, weight):
     weight is a list of multiplicative weights to apply to each
     linguistic feature. weight[0] is ignored.
     """
-    # if DBG: print(sig1)
-    # if DBG: print(sig2)
-    # if DBG: print(weight)
 
     comparison = [
         abs(sig1[1] - sig2[1]) * weight[1],
@@ -202,7 +198,6 @@ def compare_signatures(sig1, sig2, weight):
     ]
 
     comparison_total = sum(comparison)
-    # if DBG: print('comparison:', comparison_total)
     return comparison_total
     
 
@@ -216,7 +211,6 @@ def read_signature(filename):
     # all remaining features are real numbers
     for line in file:
         result.append(float(line.strip()))
-    if DBG: print(result)
     return result
         
 
@@ -236,8 +230,6 @@ if __name__ == '__main__':
     mystery_signature.append(average_sentence_length(text))
     mystery_signature.append(avg_sentence_complexity(text))
 
-    if DBG: print(mystery_signature)
-
     weights = [0, 11, 33, 50, 0.4, 4]
     
     prompt = 'enter the path to the directory of signature files: '
@@ -247,13 +239,13 @@ if __name__ == '__main__':
 
     # we will assume that there is at least one signature in that directory
     this_file = files[0]
-    signature = read_signature('%s/%s'%(dir,this_file))
+    signature = read_signature('%s/%s' % (dir, this_file))
     best_score = compare_signatures(mystery_signature, signature, weights)
     best_author = signature[0]
     for this_file in files[1:]:
-        signature = read_signature('%s/%s'%(dir, this_file))
+        signature = read_signature('%s/%s' % (dir, this_file))
         score = compare_signatures(mystery_signature, signature, weights)
         if score < best_score:
             best_score = score
             best_author = signature[0]
-    print ("best author match: %s with score %s"%(best_author, best_score))
+    print("best author match: %s with score %s" % (best_author, best_score))
